@@ -1,5 +1,7 @@
 # LogWatch - A Productivity Timer Application
 
+![LogWatch Screenshot](screenshot.png)
+
 LogWatch is a Python-based productivity timer that helps you track time between specific activities (like logging into a system or completing tasks). It features a persistent timer, scoring system, and optional privilege restrictions to encourage discipline.
 
 ## Features
@@ -15,14 +17,14 @@ LogWatch is a Python-based productivity timer that helps you track time between 
   - Restrictions automatically adjust based on your score/high score ratio
 - 🎨 **Dynamic Visual Feedback**: Color changes from red to green as you approach your high score
 
+## Requirements
+
+- Python 3.6 or later
+
 ## Installation
 
-1. Ensure you have Python 3.11.6 or later installed
-2. Clone this repository or download the script
-3. Run the script directly:
-   ```bash
-   python LogWatch.py
-   ```
+1. Clone or download this repository
+2. Install Python from [python.org](https://www.python.org/downloads/)
 
 ## Usage
 
@@ -34,7 +36,7 @@ LogWatch is a Python-based productivity timer that helps you track time between 
 3. **Reset**: Click the "Reset" button when you complete the activity you're tracking
 4. **Privileges**: Edit `info.txt` to add restrictions under "======Privileges======" section
 
-## Customizing Privileges
+### Customizing Privileges
 
 To add personal restrictions:
 1. Open `info.txt`
@@ -47,16 +49,7 @@ To add personal restrictions:
    ```
 4. Save the file - restrictions will appear on next run
 
-## Technical Details
-
-- **Dependencies**: 
-  - tkinter (included with Python)
-  - datetime (standard library)
-  - time (standard library)
-- **Data Storage**: All information saved in `info.txt`
-- **Scoring**: `score = √(seconds_since_last_reset)`
-
-## Example Privileges
+#### Example Privileges
 
 - Using your phone
 - Playing video games
@@ -64,6 +57,15 @@ To add personal restrictions:
 - Eating junk food
 - Social media browsing
 - Any other habit you want to control
+
+### Technical Details
+
+- **Dependencies**: 
+  - tkinter (included with Python)
+  - datetime (standard library)
+  - time (standard library)
+- **Data Storage**: All information saved in `info.txt` in the script's directory
+- **Scoring**: `score = √(seconds_since_last_reset)`
 
 ## Credits
 
