@@ -1,30 +1,69 @@
-# Masturbation Prevention
+# LogWatch - A Productivity Timer Application
 
-This program was created at the request of a friend who had a bad habit. It is essentially a stopwatch with a few extra features. I used the Tkinter library for Python to create a graphical user interface.
+LogWatch is a Python-based productivity timer that helps you track time between specific activities (like logging into a system or completing tasks). It features a persistent timer, scoring system, and optional privilege restrictions to encourage discipline.
 
-![Preview screenshot](scr1.png "Preview screenshot")
+## Features
 
-Features include:
-* A timer that counts up
-    * Even when the program is not running!
-* A button that resets the timer
-* Dates and times listed to keep a record of every button press
-* A scoring system to track current and high scores for encouragement
-* An optional privileges list the user can write to disincentivize pressing the button
-    * Calculates what the user is **NOT** allowed to do based off the score to high score ratio
+- ⏱️ **Persistent Timer**: Counts up continuously, even when the program isn't running
+- 🔄 **Reset Button**: Manual reset with timestamp recording
+- 📅 **Automatic Logging**: Records exact dates and times of each reset
+- 🏆 **Scoring System**: 
+  - Current score calculated as square root of seconds since last reset
+  - High score tracking for motivation
+- 🚫 **Optional Privilege System**:
+  - Define activities to restrict (like phone use or gaming)
+  - Restrictions automatically adjust based on your score/high score ratio
+- 🎨 **Dynamic Visual Feedback**: Color changes from red to green as you approach your high score
 
-When you first open `main.py`, a text file called `masturbation_prevention_info.txt` will be created in the same directory. The purpose of this file is to store data, similar to JSON or CSV files, but in a more readable way. This allows the program to keep track of the last time the stopwatch was reset and the high score while you can open and read through it.
+## Installation
 
-Furthermore, you have the option of writing privileges to restrict and grant. This is controlled by how often you reset the stopwatch. In order to write privileges, open `masturbation_prevention_info.txt`, find the privileges section, and type out a list of privileges you would want restricted in the blank space above `privileges_end`. Separate each item in the list by a line feed. Privileges near the bottom and more restricted while privileges near the top are more lenient.
+1. Ensure you have Python 3.11.6 or later installed
+2. Clone this repository or download the script
+3. Run the script directly:
+   ```bash
+   python LogWatch.py
+   ```
 
-Examples of privileges include:
-* Using your phone
-* Playing video games
-* Drinking alcohol
+## Usage
 
-Make sure [Python](https://www.python.org/downloads/ "Download Python from www.python.org") is installed on your device before opening this file.
+1. **First Run**: The program will create an `info.txt` file to store your data
+2. **Normal Operation**:
+   - The timer will automatically start counting
+   - Your score and high score will be displayed
+   - The background color will change based on your progress
+3. **Reset**: Click the "Reset" button when you complete the activity you're tracking
+4. **Privileges**: Edit `info.txt` to add restrictions under "======Privileges======" section
 
-The purpose of this program is to demonstrate reading and writing to a file using Python. It shows basic competency for data analysis and simple algorithms.
+## Customizing Privileges
+
+To add personal restrictions:
+1. Open `info.txt`
+2. Under "======Privileges======", add one restriction per line
+3. Examples:
+   ```
+   Use social media
+   Play video games
+   Eat junk food
+   ```
+4. Save the file - restrictions will appear on next run
+
+## Technical Details
+
+- **Dependencies**: 
+  - tkinter (included with Python)
+  - datetime (standard library)
+  - time (standard library)
+- **Data Storage**: All information saved in `info.txt`
+- **Scoring**: `score = √(seconds_since_last_reset)`
+
+## Example Privileges
+
+- Using your phone
+- Playing video games
+- Drinking alcohol/soda
+- Eating junk food
+- Social media browsing
+- Any other habit you want to control
 
 ## Credits
 
