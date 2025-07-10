@@ -16,7 +16,6 @@ s, m, h, d = 0, 0, 0, 0 #Units of time
 bg_color = "#ff0000" #Background color
 fg_color = "#0080ff" #Foreground color
 ColorRed, ColorGreen, ColorBlue = 255, 0, 0 #RGB values
-ColorFlag = 0 #Flag to stop changing colors
 file_contents = [] #Contents of the file
 score, hscore = 0, 1 #Score and high score
 privileges_dict = {} #Creates a dictionary for optional privileges
@@ -82,7 +81,7 @@ def update_stopwatch(temp = 0): #Updates the stopwatch
         MainWindow.after(1000, update_stopwatch) #Loops function
 
 def update_color(): #Updates the color
-    global ColorRed, ColorGreen, ColorBlue, ColorFlag, hscore, score
+    global ColorRed, ColorGreen, ColorBlue, hscore, score
 
     color = int(510 * (score / hscore)) #Choosing a color between (255, 0, 0) and (0, 255, 0)
 
@@ -92,26 +91,25 @@ def update_color(): #Updates the color
     elif color >= 255: #Variable is more than half of its potential
         ColorRed = 510 - color #Red is variable
         ColorGreen = 255 #Green is max
-    
-    if ColorFlag != 1: #Flag to change color
-        c_hex = '#%02x%02x%02x' % (ColorRed, ColorGreen, ColorBlue) #Hex color calculation
 
-        #Changes backgrounds of all widgets to the new color
-        MainWindow.configure(background = c_hex)
-        TopFrame.config(bg = c_hex)
-        current_score.config(bg = c_hex)
-        high_score.config(bg = c_hex)
-        BottomFrame.config(bg = c_hex)
-        counter_before_label.config(bg = c_hex)
-        counter.config(bg = c_hex)
-        counter_after_label.config(bg = c_hex)
-        counter_reset.config(activebackground = c_hex, bg = c_hex)
-        if PrivilegesFlag == 1:
-            privileges_label.config(bg = c_hex)
-            for privilege in privileges_dict:
-                privileges_dict[privilege].config(bg = c_hex)
+    c_hex = '#%02x%02x%02x' % (ColorRed, ColorGreen, ColorBlue) #Hex color calculation
 
-        MainWindow.after(250, update_color) #Loops function
+    #Changes backgrounds of all widgets to the new color
+    MainWindow.configure(background = c_hex)
+    TopFrame.config(bg = c_hex)
+    current_score.config(bg = c_hex)
+    high_score.config(bg = c_hex)
+    BottomFrame.config(bg = c_hex)
+    counter_before_label.config(bg = c_hex)
+    counter.config(bg = c_hex)
+    counter_after_label.config(bg = c_hex)
+    counter_reset.config(activebackground = c_hex, bg = c_hex)
+    if PrivilegesFlag == 1:
+        privileges_label.config(bg = c_hex)
+        for privilege in privileges_dict:
+            privileges_dict[privilege].config(bg = c_hex)
+
+    MainWindow.after(250, update_color) #Loops function
 
 def update_score(temp = 0): #Updates the current and high score
     global score, hscore, file_contents
@@ -148,7 +146,7 @@ def update_score(temp = 0): #Updates the current and high score
         MainWindow.after(1000, update_score) #Loops function
 
 def reset_time(): #Resets the time
-    global file_contents, TotalTime, ColorRed, ColorGreen, ColorFlag, score
+    global file_contents, TotalTime, ColorRed, ColorGreen, score
 
     file_contents[3] = file_contents[3].strip('\n') #Strips the return at the end of the exact date
     file_contents.append(f"\n{file_contents[3]}") #Appends the exact date at the end of the file
@@ -166,7 +164,6 @@ def reset_time(): #Resets the time
         TotalTime = 0 #Sets total time to 0
         ColorRed = 255 #Sets red to max
         ColorGreen = 0 #Sets green to min
-        ColorFlag = 0 #Flags color changing to 0
         score = 0 #Sets score to 0
         if PrivilegesFlag == 1: #Checks if privileges label is necessary
             privileges_label.pack() #Repacks privileges label
