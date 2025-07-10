@@ -1,14 +1,11 @@
-#Made by Alex
-
 #======Libraries======
-import tkinter as tk
-import tkinter.ttk as ttk
-import time
 from datetime import datetime
+import time
+import tkinter as tk
 
 #======Main Window======
 MainWindow = tk.Tk()
-MainWindow.title("Masturbation Prevention") #Window title
+MainWindow.title("LogWatch") #Window title
 MainWindow.configure(background = "#ff0000") #Window background color
 MainWindow.geometry("720x480") #Resolution
 MainWindow.resizable(0,0) #Disables resizing
@@ -27,11 +24,11 @@ PrivilegesFlag = 0 #Flag to use privileges
 
 #======Load File======
 try: #Tries to find and open file
-    with open('masturbation_prevention_info.txt', 'r') as f: #Opens file in read mode
+    with open('info.txt', 'r') as f: #Opens file in read mode
         file_contents = f.readlines() #Puts file contents into a list
 except: #Creates file
-    with open('masturbation_prevention_info.txt', 'a') as f: #Opens file in append mode
-        f.write("======Last Time Masturbated======\n")
+    with open('info.txt', 'a') as f: #Opens file in append mode
+        f.write("======Last Log======\n")
         f.write(f"{time.time()}\n") #1 - Last time
         f.write("======Exact Date======\n")
         f.write(f"{datetime.now()}\n") #3 - Last date
@@ -40,9 +37,9 @@ except: #Creates file
         f.write("======Privileges======\n")
         f.write("\n") #7 - Privileges (Leave empty if none)
         f.write("privileges_end\n") #n - End of privileges
-        f.write("======Other Dates Masturbated======") #k - Recent dates
+        f.write("======Recent Logs======") #k - Recent dates
 
-    with open('masturbation_prevention_info.txt', 'r') as f: #Opens file in read mode
+    with open('info.txt', 'r') as f: #Opens file in read mode
         file_contents = f.readlines() #Puts file contents into a list
 else: #After opening file
     TotalTime = int(float(time.time()) - float(file_contents[1])) #Total time in seconds calculated
@@ -133,13 +130,13 @@ def update_score(temp = 0): #Updates the current and high score
 
     if hscore > int(file_contents[5]): #Only waste resources on opening files if a change was made to high score
         try: #Handling any potential errors
-            with open('masturbation_prevention_info.txt', 'a') as f: #Opens file in append mode
+            with open('info.txt', 'a') as f: #Opens file in append mode
                 file_contents[5] = f"{hscore}\n"
                 f.seek(0) #Sets stream at the beginning of the file
                 f.truncate() #Deletes everything in the file
                 f.writelines(file_contents) #Writes each element from the list as lines in the file
         except: #Error opening file
-            print("Error opening masturbation_prevention_info.txt") #Prints error
+            print("Error opening info.txt") #Prints error
 
     #Calculates privileges as a bonus
     if PrivilegesFlag == 1:
@@ -159,12 +156,12 @@ def reset_time(): #Resets the time
     file_contents.insert(1, f"{time.time()}\n"), file_contents.insert(3, f"{datetime.now()}\n") #Writes the new time and exact date
 
     try: #Handling any potential errors
-        with open('masturbation_prevention_info.txt', 'a') as f: #Opens file in append mode
+        with open('info.txt', 'a') as f: #Opens file in append mode
             f.seek(0) #Sets stream at the beginning of the file
             f.truncate() #Deletes everything in the file
             f.writelines(file_contents) #Writes each element from the list as lines in the file
     except: #Error opening file
-        print("Error opening masturbation_prevention_info.txt") #Prints error
+        print("Error opening info.txt") #Prints error
     else: #After opening file
         TotalTime = 0 #Sets total time to 0
         ColorRed = 255 #Sets red to max
@@ -199,10 +196,10 @@ counter_before_label.pack()
 counter = tk.Label(BottomFrame, text = f"{d} Days, {h} Hours, {m} Minutes, and {s} Seconds", fg = fg_color, bg = bg_color, font = "Impact 28") #Counter
 counter.pack()
 
-counter_after_label = tk.Label(BottomFrame, text = "since you last masturbated.", fg = fg_color, bg = bg_color, font = "Impact 22") #After Counter
+counter_after_label = tk.Label(BottomFrame, text = "since you last logged.", fg = fg_color, bg = bg_color, font = "Impact 22") #After Counter
 counter_after_label.pack()
 
-counter_reset = tk.Button(BottomFrame, text = "Masturbated?", activeforeground = fg_color, activebackground = bg_color, fg = fg_color, bg = bg_color, font = "Impact 22", command = reset_time) #Reset Button
+counter_reset = tk.Button(BottomFrame, text = "Reset", activeforeground = fg_color, activebackground = bg_color, fg = fg_color, bg = bg_color, font = "Impact 22", command = reset_time) #Reset Button
 counter_reset.pack()
 
 for line in range(7, len(file_contents)): #Goes through each line in file contents list from 7 to n to check for optional privileges
