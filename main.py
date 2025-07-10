@@ -8,7 +8,7 @@ MainWindow = tk.Tk()
 MainWindow.title("LogWatch") #Window title
 MainWindow.configure(background = "#ff0000") #Window background color
 MainWindow.geometry("720x480") #Resolution
-MainWindow.resizable(0,0) #Disables resizing
+MainWindow.resizable(1,0) #Disables resizing
 
 #======Variables======
 TotalTime = 0 #Total time in seconds
@@ -20,6 +20,7 @@ file_contents = [] #Contents of the file
 score, hscore = 0, 1 #Score and high score
 privileges_dict = {} #Creates a dictionary for optional privileges
 PrivilegesFlag = 0 #Flag to use privileges
+text_font = "Helvetica" #Font for text
 
 #======Load File======
 try: #Tries to find and open file
@@ -176,27 +177,27 @@ def reset_time(): #Resets the time
 #======Top frame======
 TopFrame = tk.Frame(MainWindow, bg = bg_color)
 TopFrame.pack(fill = "both")
-
-current_score = tk.Label(TopFrame, text = f"Score: {score}", fg = fg_color, bg = bg_color, font = "Impact 22") #Current Score Label
+{text_font}
+current_score = tk.Label(TopFrame, text = f"Score: {score}", fg = fg_color, bg = bg_color, font = ({text_font}, 22, "bold")) #Current Score Label
 current_score.pack(side = tk.LEFT)
 
-high_score = tk.Label(TopFrame, text = f"High Score: {score}", fg = fg_color, bg = bg_color, font = "Impact 22") #High Score Label
+high_score = tk.Label(TopFrame, text = f"High Score: {score}", fg = fg_color, bg = bg_color, font = ({text_font}, 22, "bold")) #High Score Label
 high_score.pack(side = tk.RIGHT)
 
 #======Bottom frame======
 BottomFrame = tk.Frame(MainWindow, bg = bg_color)
 BottomFrame.pack(fill = "both")
 
-counter_before_label = tk.Label(BottomFrame, text = "It has been", fg = fg_color, bg = bg_color, font = "Impact 24") #Before Counter
+counter_before_label = tk.Label(BottomFrame, text = "It has been", fg = fg_color, bg = bg_color, font = ({text_font}, 24)) #Before Counter
 counter_before_label.pack()
 
-counter = tk.Label(BottomFrame, text = f"{d} Days, {h} Hours, {m} Minutes, and {s} Seconds", fg = fg_color, bg = bg_color, font = "Impact 28") #Counter
+counter = tk.Label(BottomFrame, text = f"{d} Days, {h} Hours, {m} Minutes, and {s} Seconds", fg = fg_color, bg = bg_color, font = ({text_font}, 28)) #Counter
 counter.pack()
 
-counter_after_label = tk.Label(BottomFrame, text = "since you last logged.", fg = fg_color, bg = bg_color, font = "Impact 22") #After Counter
+counter_after_label = tk.Label(BottomFrame, text = "since you last logged.", fg = fg_color, bg = bg_color, font = ({text_font}, 22)) #After Counter
 counter_after_label.pack()
 
-counter_reset = tk.Button(BottomFrame, text = "Reset", activeforeground = fg_color, activebackground = bg_color, fg = fg_color, bg = bg_color, font = "Impact 22", command = reset_time) #Reset Button
+counter_reset = tk.Button(BottomFrame, text = "Reset", activeforeground = fg_color, activebackground = bg_color, fg = fg_color, bg = bg_color, font = ({text_font}, 22), command = reset_time) #Reset Button
 counter_reset.pack()
 
 for line in range(7, len(file_contents)): #Goes through each line in file contents list from 7 to n to check for optional privileges
@@ -205,14 +206,13 @@ for line in range(7, len(file_contents)): #Goes through each line in file conten
     elif file_contents[line] == "\n": #Checks if line is whitespace
         continue #Ignores whitepsace
     else: #There are privileges to write
-        privileges_dict[f"privileges_label_{line - 6}"] = tk.Label(BottomFrame, text = file_contents[line].strip("\n"), fg = fg_color, bg = bg_color, font = "Impact 16") #Specific Privilege
+        privileges_dict[f"privileges_label_{line - 6}"] = tk.Label(BottomFrame, text = file_contents[line].strip("\n"), fg = fg_color, bg = bg_color, font = ({text_font}, 16)) #Specific Privilege
 if privileges_dict: #Checks if privileges label is necessary
     PrivilegesFlag = 1 #Sets flag
-    privileges_label = tk.Label(BottomFrame, text = "You are not allowed to:", fg = fg_color, bg = bg_color, font = "Impact 20") #Privileges
+    privileges_label = tk.Label(BottomFrame, text = "You are not allowed to:", fg = fg_color, bg = bg_color, font = ({text_font}, 20)) #Privileges
     privileges_label.pack() #Packs privileges label
     for privilege in privileges_dict: #Goes through specific privileges
         privileges_dict[privilege].pack() #Packs specific privileges
-
 #======Commands======
 update_stopwatch() #Updates stopwatch
 update_color() #Updates color
