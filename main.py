@@ -48,7 +48,42 @@ else: #After opening file
         hscore = score #Prevents score from being greater than high score (causes problems with color values if ratio is greater than 1)
 
 #======Functions======
-def update_stopwatch(temp = 0): #Updates the stopwatch
+# def update_stopwatch(temp = 0): #Updates the stopwatch
+#     global TotalTime, s, m, h, d
+
+#     TotalTime += 1
+#     s = TotalTime % 60
+#     m = (TotalTime // 60) % 60
+#     h = (TotalTime // 3600) % 24
+#     d = TotalTime // 86400
+
+#     counter_string = "" #Grammar correction
+
+#     if d == 1: #Days concatenation
+#         counter_string += f"{d} Day, "
+#     else:
+#         counter_string += f"{d} Days, "
+#     if h == 1: #Hours concatenation
+#         counter_string += f"{h} Hour, "
+#     else:
+#         counter_string += f"{h} Hours, "
+#     if m == 1: #Minutes concatenation
+#         counter_string += f"{m} Minute, "
+#     else:
+#         counter_string += f"{m} Minutes, "
+#     if s == 1: #Seconds concatenation
+#         counter_string += f"and {s} Second"
+#     else:
+#         counter_string += f"and {s} Seconds"
+        
+#     counter.config(text = counter_string) #Updates counter text
+    
+#     if temp == 0:
+#         MainWindow.after(1000, update_stopwatch) #Loops function
+
+# ====== this is the new function, to account for the shifting, Mono-spaced font doesn't seem to solve the issue. =================
+
+def update_stopwatch(temp = 0):  # Updates the stopwatch
     global TotalTime, s, m, h, d
 
     TotalTime += 1
@@ -57,29 +92,18 @@ def update_stopwatch(temp = 0): #Updates the stopwatch
     h = (TotalTime // 3600) % 24
     d = TotalTime // 86400
 
-    counter_string = "" #Grammar correction
+    # Monospaced format, one unit per line, leading zeros
+    counter_string = (
+        f"{d:02d} Days\n"
+        f"{h:02d} Hours\n"
+        f"{m:02d} Minutes\n"
+        f"{s:02d} Seconds"
+    )
 
-    if d == 1: #Days concatenation
-        counter_string += f"{d} Day, "
-    else:
-        counter_string += f"{d} Days, "
-    if h == 1: #Hours concatenation
-        counter_string += f"{h} Hour, "
-    else:
-        counter_string += f"{h} Hours, "
-    if m == 1: #Minutes concatenation
-        counter_string += f"{m} Minute, "
-    else:
-        counter_string += f"{m} Minutes, "
-    if s == 1: #Seconds concatenation
-        counter_string += f"and {s} Second"
-    else:
-        counter_string += f"and {s} Seconds"
-        
-    counter.config(text = counter_string) #Updates counter text
-    
+    counter.config(text=counter_string, justify="center")  # Centered multi-line label
+
     if temp == 0:
-        MainWindow.after(1000, update_stopwatch) #Loops function
+        MainWindow.after(1000, update_stopwatch)  # Loops function
 
 def update_color(): #Updates the color
     global ColorRed, ColorGreen, ColorBlue, hscore, score
